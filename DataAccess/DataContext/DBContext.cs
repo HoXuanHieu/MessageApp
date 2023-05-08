@@ -1,4 +1,5 @@
-﻿using DataAccess.Models;
+﻿using DataAccess.Configurations;
+using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.DataContext
 {
-    public class DataContext : DbContext
+    public class DBContext : DbContext
     {
         public DbSet<Friends> friends { get; set; }
         public DbSet<Messages> messages { get; set; }
@@ -20,6 +21,12 @@ namespace DataAccess.DataContext
             var connectionString = string.Format("Data Source=localhost;Initial Catalog=MessageApp;User ID=sa;Password=hieuhohieuho123;TrustServerCertificate=true;");
             optionsBuilder.UseSqlServer(connectionString);
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new FriendConfiguration());
+            modelBuilder.ApplyConfiguration(new MessageConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
 
+        }
     }
 }

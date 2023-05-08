@@ -18,6 +18,8 @@ namespace DataAccess.Models
         public DateTime last_modified;
 
         public List<Friends> friends { get; set; }
+        public List<Friends> friends_user { get; set; }
+
 
     }
 }
